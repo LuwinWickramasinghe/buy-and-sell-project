@@ -1,6 +1,6 @@
 {% extends "myapp/base.html" %}
 {% load static %}
-{% block body %}
+{% block content %}
 
     
     {% for product in products %}
@@ -8,6 +8,7 @@
         {{product.name}} ->
         {{product.price}} ->
         {{product.desc}}
+        <img src="{{product.image.url}}" alt="">
         <br>
         </a>
     {% endfor %}
