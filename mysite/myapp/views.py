@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Products
 # Create your views here.
@@ -34,6 +34,15 @@ def add_product(request):
 
 def update_product(request,id):
     product = Products.objects.get(id=id)
+
+    if request.method == 'POST':
+        product.name = request.POST.get('name')
+        product.price = request.POST.get('price')
+        product.desc = request.POST.get('desc')
+        product.image = request.FILES['upload']
+        product.save()
+        return redirect('/myapp/products')
+
     context={
         'product' : product
     }
