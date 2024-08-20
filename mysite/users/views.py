@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from .forms import newUserForm
 from django.contrib.auth.decorators import login_required
+from .models import Profile
 # Create your views here.
 
 def register(request):
@@ -23,4 +24,11 @@ def profile(request):
 
 
 def create_profile(request):
+    if request.method == 'POST':
+        contact_no = request.POST.get('contact_no')
+        image = request.FILES['upload']
+        user = request.user
+        profile = Profile(user = user, image=image, contact_no = contact_no )
+        profile.save()
+
     return render(request, 'users/createprofile.html')
