@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Products
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 def index(request):
     return HttpResponse("Hello world")
@@ -20,13 +22,15 @@ def product_detail(request,id):
     }
     return render(request, 'myapp/detail.html', context)
 
+@login_required
 def add_product(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         price = request.POST.get('price')
         desc = request.POST.get('desc')
         image = request.FILES['upload']
-        product = Products(name=name,price=price, desc=desc, image=image)
+        seller_name = request.user
+        product = Products(name=name,price=price, desc=desc, image=image, seller_name = seller_name)
         product.save()
 
 
