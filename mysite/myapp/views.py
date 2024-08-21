@@ -1,3 +1,4 @@
+from django.views.generic import ListView, DetailView
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Products
@@ -15,12 +16,26 @@ def products(request):
     }
     return render(request, 'myapp/index.html', context)
 
+#class based listview
+class ProductListView(ListView):
+    model = Products
+    template_name = 'myapp/index.html'
+    context_object_name = 'products'
+
+
 def product_detail(request,id):
     product = Products.objects.get(id=id)
     context={
         'product' : product
     }
     return render(request, 'myapp/detail.html', context)
+
+#class based detail view
+class ProductDetailView(DetailView):
+    model = Products
+    template_name = 'myapp/detail.html'
+    context_object_name = 'product'
+
 
 @login_required
 def add_product(request):
