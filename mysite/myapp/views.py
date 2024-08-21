@@ -1,9 +1,11 @@
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Products
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
 
 # Create your views here.
 def index(request):
@@ -91,7 +93,13 @@ def delete_product(request, id):
         return redirect('/myapp/products')
     
     return render(request,'myapp/delete.html', context)
-    
+
+#class based deleteview
+class ProductDelete(DeleteView):
+    model = Products
+    success_url = reverse_lazy('myapp:products')
+
+
 def my_listings(request):
     products = Products.objects.filter(seller_name=request.user)
     context = {
