@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Products
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 # Create your views here.
 def index(request):
@@ -59,21 +59,26 @@ class ProductCreateView(CreateView):
     #product_form.html
 
 
-def update_product(request,id):
-    product = Products.objects.get(id=id)
+# def update_product(request,id):
+#     product = Products.objects.get(id=id)
 
-    if request.method == 'POST':
-        product.name = request.POST.get('name')
-        product.price = request.POST.get('price')
-        product.desc = request.POST.get('desc')
-        product.image = request.FILES['upload']
-        product.save()
-        return redirect('/myapp/products')
+#     if request.method == 'POST':
+#         product.name = request.POST.get('name')
+#         product.price = request.POST.get('price')
+#         product.desc = request.POST.get('desc')
+#         product.image = request.FILES['upload']
+#         product.save()
+#         return redirect('/myapp/products')
 
-    context={
-        'product' : product
-    }
-    return render(request, 'myapp/updateproduct.html',context)
+#     context={
+#         'product' : product
+#     }
+#     return render(request, 'myapp/updateproduct.html',context)
+
+class ProductUpdateView(UpdateView):
+    model = Products
+    fields = ['name', 'price', 'desc', 'image', 'seller_name']
+    template_name_suffix = '_update_form'
 
 def delete_product(request, id):
     product = Products.objects.get(id=id)
