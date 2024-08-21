@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Products
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import CreateView
 
 # Create your views here.
 def index(request):
@@ -50,6 +51,13 @@ def add_product(request):
 
 
     return render(request, 'myapp/addproduct.html')
+
+#class based view for create product
+class ProductCreateView(CreateView):
+    model = Products
+    fields = ['name', 'price', 'desc', 'image', 'seller_name']
+    #product_form.html
+
 
 def update_product(request,id):
     product = Products.objects.get(id=id)
