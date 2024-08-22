@@ -62,6 +62,10 @@ def add_product(request):
 class ProductCreateView(CreateView):
     model = Products
     fields = ['name', 'price', 'desc', 'image', 'seller_name']
+
+    success_url = reverse_lazy('myapp:products')
+    
+    
     #product_form.html
 
 
