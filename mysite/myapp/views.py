@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from .models import Products
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
+from django.core.paginator import Paginator
 
 # Create your views here.
 def index(request):
@@ -14,8 +14,11 @@ def index(request):
 
 def products(request):
     products = Products.objects.all()
+    paginator = Paginator(products,3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context ={
-        'products': products
+        'page_obj' : page_obj
     }
     return render(request, 'myapp/index.html', context)
 
