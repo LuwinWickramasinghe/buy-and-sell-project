@@ -1,10 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 class Products(models.Model):
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse("myapp:products", kwargs={"pk": self.pk})
     
     #user = models.OneToOneField(User, on_delete=models.CASCADE)
 
