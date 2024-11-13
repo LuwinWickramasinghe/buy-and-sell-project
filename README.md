@@ -92,16 +92,3 @@ buy-and-sell-project-main/
 - **Database**: SQLite (default), with options for PostgreSQL or MySQL
 - **Admin Interface**: Django Admin
 
-## Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feature-name`).
-3. Commit your changes (`git commit -m 'Add feature'`).
-4. Push to the branch (`git push origin feature-name`).
-5. Open a Pull Request.
-
----
-
-This README provides a complete guide to setting up, running, and contributing to *TradeEase*. Let me know if there are any additional sections or details you’d like to include!
